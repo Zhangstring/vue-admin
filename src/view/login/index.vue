@@ -47,6 +47,8 @@ export default {
           this.$store.dispatch('getUserInfo').then(() => {
             this.$router.push({path:'/'})
           })
+        }else {
+          this.$message.error('用户名或密码错误')
         }
       }else {
         this.$message.error('用户名或密码不能为空')
