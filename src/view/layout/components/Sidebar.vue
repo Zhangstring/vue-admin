@@ -1,46 +1,66 @@
 <template>
   <div>
-    <div class="logo">运营后台</div>
+    <div class="logo">后台</div>
     <el-menu class="sidebar-menu"
-             default-active="1"
+             :default-active="$route.path"
              background-color="#001529"
              text-color="#fff"
              active-text-color="#ffd04b">
-      <router-link tag="div"
-                   to="/home">>
-        <el-menu-item index='1'>
-          <i class="el-icon-menu"></i>
-          <span slot="title">首页</span>
-        </el-menu-item>
-      </router-link>
+      <div v-for="(item, index) in menu"
+           :key="index">
+        <!-- 二级目录 -->
+        <el-submenu :index="item.index"
+                    v-if="item.children">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>{{item.title}}</span>
+          </template>
+          <el-menu-item-group>
+            <router-link tag="div"
+                         :to="item2.path"
+                         v-for="(item2, index2) in item.children"
+                         :key="index2">
+              <el-menu-item :index="item2.path">{{item2.title}}</el-menu-item>
+            </router-link>
+          </el-menu-item-group>
+        </el-submenu>
+        <!-- 一级目录 -->
+        <router-link tag="div"
+                     :to="item.path"
+                     v-else>
+          <el-menu-item :index='item.path'>
+            <i class="el-icon-menu"></i>
+            <span slot="title">{{item.title}}</span>
+          </el-menu-item>
+        </router-link>
 
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
-        </template>
-        <el-menu-item-group>
-          <router-link tag="div"
-                       to="/user">
-            <el-menu-item index="2-1">user</el-menu-item>
-          </router-link>
-          <router-link tag="div"
-                       to="/manager">
-            <el-menu-item index="2-2">manager</el-menu-item>
-          </router-link>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-menu-item index='3'>
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
+      </div>
+
     </el-menu>
 
   </div>
 </template>
 <script>
 export default {
-   name: 'Sidebar'
+   name: 'Sidebar',
+   data() {
+     return {
+       menu: [
+         {
+           title: '首页',
+           path: '/home',
+         },
+         {
+           title: 'UI',
+           path: '/ui'
+         },
+         {
+           title: '表格',
+           path: '/table'
+         }
+       ]
+     }
+   }
 }
 </script>
 <style lang="scss" scoped>

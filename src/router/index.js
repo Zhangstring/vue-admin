@@ -20,11 +20,11 @@ const router = new Router({
           component: Home
         },
         {
-          path: '/user',
+          path: '/ui',
           component: User
         },
         {
-          path: '/manager',
+          path: '/table',
           component: Manager
         }
       ]
