@@ -13,7 +13,7 @@ const user = {
     getUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         commit('SET_NAME', 'admin')
-        setToken('1231')
+        setToken('admin')
         resolve()
       })
     }
